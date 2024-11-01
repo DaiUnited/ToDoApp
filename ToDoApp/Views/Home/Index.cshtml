@@ -1,8 +1,44 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Simple ToDo List";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2>ToDo List</h2>
+
+<table id="todo-table" border="1" cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Job</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="todo-list">
+    </tbody>
+</table>
+
+<button onclick="#">Add New ToDo</button>
+
+<!-- Modal for Add/Edit -->
+<div id="todo-modal" style="display: none; border: 1px solid black; padding: 10px; background-color: #f2f2f2;">
+    <h3>Add/Edit ToDo</h3>
+    <div>
+        <label>Job ToDo:</label>
+        <input type="text" id="jobToDo" />
+    </div>
+    <div>
+        <label>Status:</label>
+        <select id="status">
+            <option value="Incomplete">Incomplete</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+    <div>
+        <label>Start Date:</label>
+        <input type="date" id="startDate" />
+    </div>
+    <button id="save-todo" onclick="#">Save</button>
+    <button onclick="#">Cancel</button>
 </div>
