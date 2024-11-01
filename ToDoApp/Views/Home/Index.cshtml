@@ -115,4 +115,23 @@
             });
         }
     }
+
+    function editTodo(id) {
+        fetch("/api/todo/" + id, { method: "GET"})
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("jobToDo").value = data.jobToDo;
+                document.getElementById("status").value = data.status;
+                document.getElementById("startDate").value = new Date(data.startDate).toISOString().split('T')[0];
+                document.getElementById("save-todo").dataset.id = id;
+                document.getElementById("todo-modal").style.display = "block";
+            });
+    }
+
+    function deleteTodo(id) {
+        if (confirm("Are you sure you want to delete this ToDo?")) {
+            fetch("/api/todo/" + id, { method: "DELETE" })
+                .then(() => loadTodos());
+        }
+    }
 </script>
