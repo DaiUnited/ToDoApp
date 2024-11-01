@@ -28,3 +28,15 @@ C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\obj\Debug\net8.0\r
 C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\obj\Debug\net8.0\ToDoApp.pdb
 C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\obj\Debug\net8.0\ToDoApp.genruntimeconfig.cache
 C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\obj\Debug\net8.0\ref\ToDoApp.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\obj\Debug\net8.0\ToDoApp.csproj.AssemblyReference.cache
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\obj\Debug\net8.0\ToDoApp.sourcelink.json
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\obj\Debug\net8.0\ToDoApp.csproj.Up2Date
