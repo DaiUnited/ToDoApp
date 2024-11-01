@@ -18,7 +18,7 @@
     </tbody>
 </table>
 
-<button onclick="#">Add New ToDo</button>
+<button onclick="showAddModal()">Add New ToDo</button>
 
 <!-- Modal for Add/Edit -->
 <div id="todo-modal" style="display: none; border: 1px solid black; padding: 10px; background-color: #f2f2f2;">
@@ -39,6 +39,80 @@
         <label>Start Date:</label>
         <input type="date" id="startDate" />
     </div>
-    <button id="save-todo" onclick="#">Save</button>
-    <button onclick="#">Cancel</button>
+    <button id="save-todo" onclick="saveTodo()">Save</button>
+    <button onclick="hideModal()">Cancel</button>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        loadTodos();
+    });
+
+    function loadTodos() {
+        fetch("/api/todo")
+            .then(response => response.json())
+            .then(data => {
+                const todoList = document.getElementById("todo-list");
+                todoList.innerHTML = ""; // Clear existing rows
+
+                data.forEach(todo => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                                    <td>${todo.id}</td>
+                                    <td>${todo.jobToDo}</td>
+                                    <td>${todo.status}</td>
+                                    <td>${new Date(todo.startDate).toLocaleDateString()}</td>
+                                    <td>
+                                        <button onclick="editTodo(${todo.id})">Edit</button>
+                                        <button onclick="deleteTodo(${todo.id})">Delete</button>
+                                    </td>
+                                `;
+                    todoList.appendChild(row);
+                });
+            });
+    }
+
+    function showAddModal() {
+        document.getElementById("jobToDo").value = "";
+        document.getElementById("status").value = "Incomplete";
+        document.getElementById("startDate").value = "";
+        document.getElementById("save-todo").dataset.id = "";
+        document.getElementById("todo-modal").style.display = "block";
+    }
+
+    function hideModal() {
+        document.getElementById("todo-modal").style.display = "none";
+    }
+
+    function saveTodo() {
+        const todo = {
+            jobToDo: document.getElementById("jobToDo").value,
+            status: document.getElementById("status").value,
+            startDate: document.getElementById("startDate").value
+        };
+
+        const id = document.getElementById("save-todo").dataset.id;
+
+        if (id) {
+            // Update existing todo
+            fetch("/api/todo/" + id, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(todo)
+            }).then(() => {
+                loadTodos();
+                hideModal();
+            });
+        } else {
+            // Create new todo
+            fetch("/api/todo", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(todo)
+            }).then(() => {
+                loadTodos();
+                hideModal();
+            });
+        }
+    }
+</script>
