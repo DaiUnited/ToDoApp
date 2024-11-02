@@ -3,7 +3,23 @@
 }
 
 <h2>ToDo List</h2>
-<button class="btn btn-primary mt-3" onclick="showAddModal()">Add New ToDo</button>
+
+<div class="d-flex mb-3">
+    <button class="btn btn-primary mr-2" onclick="showAddModal()">Add New ToDo</button>
+
+    <input type="text" id="searchInput" class="form-control w-25 mr-2" placeholder="Search JobToDo" />
+    <button class="btn btn-secondary mr-2" onclick="searchTodos()">Search</button>
+
+    <select id="statusFilter" class="form-control w-25 mr-2" onchange="filterByStatus()">
+        <option value="">All Status</option>
+        <option value="Incomplete">Incomplete</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <button class="btn btn-info mr-2" onclick="sortTodos('asc')">Sort by Date Asc</button>
+    <button class="btn btn-info" onclick="sortTodos('desc')">Sort by Date Desc</button>
+</div>
 
 <table id="todo-table" class="table table-bordered mt-3">
     <thead class="thead-dark">
@@ -25,7 +41,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Add/Edit ToDo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" onclick="hideModal()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -64,18 +80,17 @@
         loadTodos();
     });
 
-    function loadTodos() {
-        $.get("/api/todo", function (data) {
+    function loadTodos(queryParams = {}) {
+        $.get("/api/todo", queryParams, function (data) {
             const todoList = $("#todo-list");
-            todoList.empty(); // Clear existing rows
+            todoList.empty();
 
             data.forEach(todo => {
                 let actionButtons = `
-                    <button class="btn btn-sm btn-warning" onclick="editTodo(${todo.id})">Edit</button>
-                    <button class="btn btn-sm btn-danger" onclick="deleteTodo(${todo.id})">Delete</button>
-                `;
+                        <button class="btn btn-sm btn-warning" onclick="editTodo(${todo.id})">Edit</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteTodo(${todo.id})">Delete</button>
+                    `;
 
-                // Start, Finish, and Inactive buttons based on status
                 if (todo.status === "Incomplete") {
                     actionButtons += `<button class="btn btn-sm btn-info" onclick="updateStatus(${todo.id}, 'In Progress')">Start</button>`;
                 } else if (todo.status === "In Progress") {
@@ -85,19 +100,18 @@
                 }
 
                 const row = `
-                    <tr>
-                        <td>${todo.id}</td>
-                        <td>${todo.jobToDo}</td>
-                        <td>${todo.status}</td>
-                        <td>${new Date(todo.startDate).toLocaleDateString()}</td>
-                        <td>${actionButtons}</td>
-                    </tr>
-                `;
+                        <tr>
+                            <td>${todo.id}</td>
+                            <td>${todo.jobToDo}</td>
+                            <td>${todo.status}</td>
+                            <td>${new Date(todo.startDate).toLocaleDateString()}</td>
+                            <td>${actionButtons}</td>
+                        </tr>
+                    `;
                 todoList.append(row);
             });
         });
     }
-
 
     function showAddModal() {
         $("#jobToDo").val("");
@@ -173,7 +187,7 @@
         const updatedData = { Id: id, Status: newStatus };
 
         $.ajax({
-            url: `/api/todo/UpdateStatus/${id}`,
+            url: `/api/todo/UpdateStatus/${id}`,        
             type: "PUT",
             contentType: "application/json",
             data: JSON.stringify(updatedData),
@@ -181,5 +195,22 @@
                 loadTodos();
             },
         });
+    }
+
+    function sortTodos(order) {
+        const queryParams = { sort: order };
+        loadTodos(queryParams);
+    }
+
+    function filterByStatus() {
+        const status = $("#statusFilter").val();
+        const queryParams = { status: status };
+        loadTodos(queryParams);
+    }
+
+    function searchTodos() {
+        const jobToDo = $("#searchInput").val();
+        const queryParams = { jobToDo: jobToDo };
+        loadTodos(queryParams);
     }
 </script>

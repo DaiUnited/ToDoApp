@@ -17,15 +17,26 @@ namespace ToDoApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ToDoItem>> GetAll()
+        public ActionResult<List<ToDoItem>> GetAll([FromQuery] string sort = null, [FromQuery] string status = null, [FromQuery] string jobToDo = null)
         {
-            return _repository.GetAll();
+            return _repository.GetAll(sort, status, jobToDo);
         }
 
         [HttpPost]
         public IActionResult Create([FromBody] ToDoItem todo)
         {
             _repository.Add(todo);
+            return Ok(todo);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<ToDoItem> GetById(int id)
+        {
+            var todo = _repository.GetById(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
             return Ok(todo);
         }
 
@@ -50,6 +61,5 @@ namespace ToDoApp.Controllers
             _repository.UpdateStatus(todo);
             return Ok(todo);
         }
-
     }
 }
