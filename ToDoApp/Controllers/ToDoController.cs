@@ -43,5 +43,13 @@ namespace ToDoApp.Controllers
             _repository.Delete(id);
             return Ok();
         }
+
+        [HttpPut("UpdateStatus/{id}")]
+        public IActionResult UpdateStatus(int id, [FromBody] ToDoItem todo)
+        {
+            _repository.UpdateStatus(todo);
+            return Ok(todo);
+        }
+
     }
 }

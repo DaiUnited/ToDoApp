@@ -76,5 +76,18 @@ namespace ToDoApp.Models
                 command.ExecuteNonQuery();
             }
         }
+
+        public void UpdateStatus(ToDoItem todo)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand("UPDATE ToDo SET Status = @Status WHERE Id = @Id", connection);
+                command.Parameters.AddWithValue("@Id", todo.Id);
+                command.Parameters.AddWithValue("@Status", todo.Status);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
     }
 }

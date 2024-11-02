@@ -70,22 +70,34 @@
             todoList.empty(); // Clear existing rows
 
             data.forEach(todo => {
+                let actionButtons = `
+                    <button class="btn btn-sm btn-warning" onclick="editTodo(${todo.id})">Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteTodo(${todo.id})">Delete</button>
+                `;
+
+                // Start, Finish, and Inactive buttons based on status
+                if (todo.status === "Incomplete") {
+                    actionButtons += `<button class="btn btn-sm btn-info" onclick="updateStatus(${todo.id}, 'In Progress')">Start</button>`;
+                } else if (todo.status === "In Progress") {
+                    actionButtons += `<button class="btn btn-sm btn-success" onclick="updateStatus(${todo.id}, 'Completed')">Finish</button>`;
+                } else if (todo.status === "Completed") {
+                    actionButtons += `<button class="btn btn-sm btn-secondary" disabled>INACTIVE</button>`;
+                }
+
                 const row = `
-                        <tr>
-                            <td>${todo.id}</td>
-                            <td>${todo.jobToDo}</td>
-                            <td>${todo.status}</td>
-                            <td>${new Date(todo.startDate).toLocaleDateString()}</td>
-                            <td>
-                                <button class="btn btn-sm btn-warning" onclick="editTodo(${todo.id})">Edit</button>
-                                <button class="btn btn-sm btn-danger" onclick="deleteTodo(${todo.id})">Delete</button>
-                            </td>
-                        </tr>
-                    `;
+                    <tr>
+                        <td>${todo.id}</td>
+                        <td>${todo.jobToDo}</td>
+                        <td>${todo.status}</td>
+                        <td>${new Date(todo.startDate).toLocaleDateString()}</td>
+                        <td>${actionButtons}</td>
+                    </tr>
+                `;
                 todoList.append(row);
             });
         });
     }
+
 
     function showAddModal() {
         $("#jobToDo").val("");
@@ -155,5 +167,19 @@
                 }
             });
         }
+    }
+
+    function updateStatus(id, newStatus) {
+        const updatedData = { Id: id, Status: newStatus };
+
+        $.ajax({
+            url: `/api/todo/UpdateStatus/${id}`,
+            type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(updatedData),
+            success: function () {
+                loadTodos();
+            },
+        });
     }
 </script>
