@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using ToDoApp.Models;
-using System.Linq;
 
 namespace ToDoApp.Controllers
 {
@@ -8,67 +9,38 @@ namespace ToDoApp.Controllers
     [ApiController]
     public class ToDoController : ControllerBase
     {
-        private readonly ToDoContext _context;
+        private readonly ToDoRepository _repository;
 
-        public ToDoController(ToDoContext context)
+        public ToDoController(IConfiguration configuration)
         {
-            _context = context;
+            _repository = new ToDoRepository(configuration);
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public ActionResult<List<ToDoItem>> GetAll()
         {
-            var todos = _context.ToDoItems.ToList();
-            return Ok(todos);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var todo = _context.ToDoItems.Find(id);
-            if (todo == null)
-            {
-                return NotFound();
-            }
-            return Ok(todo);
+            return _repository.GetAll();
         }
 
         [HttpPost]
         public IActionResult Create([FromBody] ToDoItem todo)
         {
-            _context.ToDoItems.Add(todo);
-            _context.SaveChanges();
+            _repository.Add(todo);
             return Ok(todo);
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] ToDoItem todo)
         {
-            var existingToDo = _context.ToDoItems.Find(id);
-            if (existingToDo == null)
-            {
-                return NotFound();
-            }
-
-            existingToDo.JobToDo = todo.JobToDo;
-            existingToDo.Status = todo.Status;
-            existingToDo.StartDate = todo.StartDate;
-
-            _context.SaveChanges();
-            return Ok(existingToDo);
+            todo.Id = id;
+            _repository.Update(todo);
+            return Ok(todo);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var todo = _context.ToDoItems.Find(id);
-            if (todo == null)
-            {
-                return NotFound();
-            }
-
-            _context.ToDoItems.Remove(todo);
-            _context.SaveChanges();
+            _repository.Delete(id);
             return Ok();
         }
     }

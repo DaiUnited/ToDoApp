@@ -40,3 +40,9 @@ C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\M
 C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\obj\Debug\net8.0\ToDoApp.csproj.AssemblyReference.cache
 C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\obj\Debug\net8.0\ToDoApp.sourcelink.json
 C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\obj\Debug\net8.0\ToDoApp.csproj.Up2Date
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\System.Data.SqlClient.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\runtimes\win-arm64\native\sni.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\runtimes\win-x64\native\sni.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\daiun\Documents\WebIntern\WebToDoApp\ToDoApp\ToDoApp\bin\Debug\net8.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
